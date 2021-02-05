@@ -5,7 +5,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "push": "git add . && git commit -m",
+    "postpush": "git push -all"
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.10",
