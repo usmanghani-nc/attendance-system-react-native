@@ -7,7 +7,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "push": "git add . && git commit -m",
-    "postpush": "git push -all"
+    "postpush": "git push --all"
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.10",
