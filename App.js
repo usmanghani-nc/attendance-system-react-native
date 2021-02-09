@@ -5,6 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as Font from 'expo';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { navigationRef } from './RootNavigation';
 // SCREENS ...//
 import HomeScreen from './src/screens/HomeScreen';
 import DetailsScreen from './src/screens/DetailsScreen';
@@ -21,7 +23,6 @@ const Tab = createBottomTabNavigator();
 
 function App() {
   const { state } = authContext();
-  console.log(state, '??');
 
   useEffect(() => {
     const fontLoad = async () => {
@@ -36,15 +37,16 @@ function App() {
   }, []);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       {state.isLogin ? (
-        <Tab.Navigator>
+        <Tab.Navigator initialRouteName="Home">
           <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Details" component={DetailsScreen} />
           <Tab.Screen name="Auth" component={AuthScreen} />
         </Tab.Navigator>
       ) : (
         <Stack.Navigator
+          initialRouteName="Login"
           screenOptions={{
             headerShown: false,
           }}>
@@ -59,7 +61,9 @@ function App() {
 export default function () {
   return (
     <AuthContext>
-      <App />
+      <SafeAreaProvider>
+        <App />
+      </SafeAreaProvider>
     </AuthContext>
   );
 }

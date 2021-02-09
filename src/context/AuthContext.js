@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as RootNavigation from '../../RootNavigation';
 
 export const Context = React.createContext();
 
@@ -9,6 +10,7 @@ export const authContext = () => useContext(Context);
 export default function Auth(props) {
   const [state, setState] = useState({
     isLogin: false,
+    error: null,
   });
 
   useEffect(() => {
@@ -30,23 +32,47 @@ export default function Auth(props) {
     if (!email || !password) return;
 
     try {
-      const {
-        data: { data: token },
-      } = await axios.post('https://b73a34dc2b1b.ngrok.io/login', { email, password });
+      const { data } = await axios.post('https://c8513a3b024e.ngrok.io/login', { email, password });
 
-      if (token) {
+      console.log(data, '??');
+      if (data.status === 'ok') {
         setState({ ...state, isLogin: true });
 
-        console.log(token);
-        await AsyncStorage.setItem('token', token);
+        await AsyncStorage.setItem('token', data.data);
+      } else {
+        setState({ ...state, error: data });
       }
     } catch (err) {
       console.log(err.message, 'ERR');
     }
   };
 
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('token');
+    setState({ ...state, isLogin: false });
+    RootNavigation.navigate('Login');
+  };
+
+  const handleRegister = async ({ fullName, email, password, dateOfBirth }) => {
+    if (!fullName && !email && !password && !dateOfBirth) return;
+
+    try {
+      const { data } = await axios.post('https://c8513a3b024e.ngrok.io/register', {
+        fullName,
+        email,
+        password,
+        dateOfBirth,
+      });
+
+      if (data.register) RootNavigation.navigate('Login');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <Context.Provider value={{ state: { ...state }, functions: { handleLogin } }}>
+    <Context.Provider
+      value={{ state: { ...state }, functions: { handleLogin, handleLogout, handleRegister } }}>
       {props.children}
     </Context.Provider>
   );
