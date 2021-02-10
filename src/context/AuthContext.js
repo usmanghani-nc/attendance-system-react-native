@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
-import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as RootNavigation from '../../RootNavigation';
+import trackAPI from '../api';
 
 export const Context = React.createContext();
 
@@ -32,7 +32,7 @@ export default function Auth(props) {
     if (!email || !password) return;
 
     try {
-      const { data } = await axios.post('https://c8513a3b024e.ngrok.io/login', { email, password });
+      const { data } = await trackAPI.post(`/login`, { email, password });
 
       console.log(data, '??');
       if (data.status === 'ok') {
@@ -57,7 +57,7 @@ export default function Auth(props) {
     if (!fullName && !email && !password && !dateOfBirth) return;
 
     try {
-      const { data } = await axios.post('https://c8513a3b024e.ngrok.io/register', {
+      const { data } = await trackAPI.post(`/register`, {
         fullName,
         email,
         password,

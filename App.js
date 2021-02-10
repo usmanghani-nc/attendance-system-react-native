@@ -16,6 +16,7 @@ import RegisterScreen from './src/screens/RegisterScreen';
 
 // Context ...//
 import AuthContext, { authContext } from './src/context/AuthContext';
+import AttendanceContext from './src/context/AttendanceContext';
 
 const Stack = createStackNavigator();
 
@@ -60,10 +61,12 @@ function App() {
 
 export default function () {
   return (
-    <AuthContext>
-      <SafeAreaProvider>
-        <App />
-      </SafeAreaProvider>
-    </AuthContext>
+    <AttendanceContext>
+      <AuthContext>
+        <SafeAreaProvider>
+          <App />
+        </SafeAreaProvider>
+      </AuthContext>
+    </AttendanceContext>
   );
 }
