@@ -1034,7 +1034,7 @@
     "@babel/preset-env" "^7.4.4"
     "@babel/preset-typescript" "^7.3.3"
 
-"@expo/config-plugins@1.0.18":
+"@expo/config-plugins@1.0.18", "@expo/config-plugins@~1.0.13":
   version "1.0.18"
   resolved "https://registry.yarnpkg.com/@expo/config-plugins/-/config-plugins-1.0.18.tgz#f0f7d36316d60ea67b4cc6394bffef6d6904345d"
   integrity sha512-8Ey+22cEAOxK+SBJY+OazaLsPyL5FXdsykfBg/QQJE2Y/DTFebUVlr5bQyeqavbASDvmDxg3Fd71A8Se8+qT1g==
@@ -3094,6 +3094,14 @@ expo-status-bar@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.0.3.tgz#62b4d6145680abd43ba6ecfa465f835e88bf6263"
   integrity sha512-/Orgla1nkIrfswNHbuAOTbPVq0g3+GrhoQVk7MRafY2dwrFLgXhaPExS+eN2hpmzqPv2LG5cqAZDCQUAjmZYBQ==
+
+expo-task-manager@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/expo-task-manager/-/expo-task-manager-9.0.0.tgz#12e1a69781f88eaf0780f8b190c2f78a825f2071"
+  integrity sha512-vkjolthm0AR0oFdFoL1GWOPIgCnsab6NETRpZTyqZbTJkFTnzRxNJDRGwyMEmuPh6dCPN/xLyZVhkJYnz5LA1g==
+  dependencies:
+    "@expo/config-plugins" "~1.0.13"
+    unimodules-app-loader "~2.0.0"
 
 expo@~40.0.0:
   version "40.0.1"
@@ -6302,6 +6310,11 @@ unimodules-app-loader@~1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/unimodules-app-loader/-/unimodules-app-loader-1.4.0.tgz#8ab738a379b46798aec9e4fda317f17750cd2f92"
   integrity sha512-qBxfXIOLy1KmBDThgmLBPJSNI0xV+6Xz2Sfsu3Hz2ewijaNlgRjSBH3McXIPU/nSVb/vVtcEtDvXuGw3udM0fQ==
+
+unimodules-app-loader@~2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/unimodules-app-loader/-/unimodules-app-loader-2.0.0.tgz#e870afe86c025e4c28acb62e11810f46e120e56f"
+  integrity sha512-U3mDkWePfpaqMeIuWK7U8TGEi1wG51AkZ0WAafub2LM2h8G8uDogpy5IvDdPCPK/l7hTTJv52jIx27fANmI/DA==
 
 unimodules-barcode-scanner-interface@~5.4.0:
   version "5.4.0"
