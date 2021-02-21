@@ -28,10 +28,8 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Container>
-        <Header />
-
-        <Content>
+      <Container style={{ marginLeft: 10, marginRight: 10 }}>
+        <Content contentContainerStyle={{ flex: 1, justifyContent: 'center' }}>
           <Form>
             <Item fixedLabel>
               <Label>Full Name</Label>
@@ -73,14 +71,23 @@ export default function LoginScreen({ navigation }) {
               style={{
                 marginTop: 20,
               }}>
-              <Button onPress={() => handleRegister(state)}>
-                <Text>Register</Text>
+              <Button
+                style={{
+                  width: '100%',
+                }}
+                onPress={() => handleRegister(state)}>
+                <Text style={{ textAlign: 'center', width: '100%' }}>Register</Text>
               </Button>
             </View>
           </Form>
 
-          <View>
-            <Text onPress={() => navigation.navigate('Login')}>Login Page</Text>
+          <View
+            style={{
+              marginTop: 20,
+            }}>
+            <Text style={{ textAlign: 'center' }} onPress={() => navigation.navigate('Login')}>
+              Login Page
+            </Text>
           </View>
         </Content>
       </Container>

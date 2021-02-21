@@ -1,16 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Container,
-  Header,
-  Button,
-  Content,
-  Form,
-  Item,
-  Input,
-  Label,
-  Text,
-  View,
-} from 'native-base';
+import { Container, Button, Content, Form, Item, Input, Label, Text, View } from 'native-base';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { authContext } from '../../context/AuthContext';
 
@@ -26,12 +15,10 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Container>
-        <Header />
-
-        <Content>
+      <Container style={{ marginLeft: 10, marginRight: 10 }}>
+        <Content contentContainerStyle={{ flex: 1, justifyContent: 'center' }}>
           <Form>
-            <Item fixedLabel>
+            <Item fixedLabel style={{ marginBottom: 10 }}>
               <Label>Email</Label>
               <Input
                 placeholder="ex@gmail.com"
@@ -52,14 +39,23 @@ export default function LoginScreen({ navigation }) {
               style={{
                 marginTop: 20,
               }}>
-              <Button onPress={() => handleLogin(state)}>
-                <Text>Login</Text>
+              <Button
+                style={{
+                  width: '100%',
+                }}
+                onPress={() => handleLogin(state)}>
+                <Text style={{ textAlign: 'center', width: '100%' }}>Login</Text>
               </Button>
             </View>
           </Form>
 
-          <View>
-            <Text onPress={() => navigation.navigate('Register')}>Register Page</Text>
+          <View
+            style={{
+              marginTop: 20,
+            }}>
+            <Text style={{ textAlign: 'center' }} onPress={() => navigation.navigate('Register')}>
+              Register Page
+            </Text>
           </View>
         </Content>
       </Container>

@@ -3,14 +3,15 @@ import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import * as Font from 'expo';
-import { Ionicons } from '@expo/vector-icons';
+import * as Font from 'expo-font';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { navigationRef } from './RootNavigation';
+import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
+
 // SCREENS ...//
 import HomeScreen from './src/screens/HomeScreen';
 import DetailsScreen from './src/screens/DetailsScreen';
-import AuthScreen from './src/screens/AuthScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 
@@ -26,24 +27,49 @@ function App() {
   const { state } = authContext();
 
   useEffect(() => {
-    const fontLoad = async () => {
+    (async () =>
       await Font.loadAsync({
         Roboto: require('native-base/Fonts/Roboto.ttf'),
         Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-        ...Ionicons.font,
-      });
-    };
-
-    fontLoad();
+      }))();
   }, []);
 
   return (
     <NavigationContainer ref={navigationRef}>
       {state.isLogin ? (
-        <Tab.Navigator initialRouteName="Home">
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Details" component={DetailsScreen} />
-          <Tab.Screen name="Auth" component={AuthScreen} />
+        <Tab.Navigator
+          initialRouteName="Home"
+          tabBarOptions={{
+            activeTintColor: '#fff',
+            activeBackgroundColor: '#0083ff',
+          }}>
+          <Tab.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              tabBarIcon: ({ size, color }) => (
+                <MaterialCommunityIcons name="home-outline" size={size} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Details"
+            component={DetailsScreen}
+            options={{
+              tabBarIcon: ({ size, color }) => (
+                <MaterialCommunityIcons name="details" size={size} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Profile"
+            component={ProfileScreen}
+            options={{
+              tabBarIcon: ({ size, color }) => (
+                <SimpleLineIcons name="settings" size={size} color={color} />
+              ),
+            }}
+          />
         </Tab.Navigator>
       ) : (
         <Stack.Navigator

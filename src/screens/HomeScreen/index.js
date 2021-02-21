@@ -5,7 +5,6 @@ import { attendanceContext } from '../../context/AttendanceContext';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import Constants from 'expo-constants';
 import * as Location from 'expo-location';
-
 const initState = {
   hasePermission: null,
   location: {},
