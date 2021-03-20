@@ -14,6 +14,7 @@ import DetailsScreen from './src/screens/DetailsScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
+import LoadingScreen from './src/screens/LoadingScreen';
 
 // Context ...//
 import AuthContext, { authContext } from './src/context/AuthContext';
@@ -33,6 +34,10 @@ function App() {
         Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
       }))();
   }, []);
+
+  if (state.loading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <NavigationContainer ref={navigationRef}>

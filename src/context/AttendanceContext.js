@@ -10,7 +10,7 @@ export const attendanceContext = () => useContext(Context);
 export default function Attendance(props) {
   const [state, setState] = useState({
     err: null,
-    attendances: {},
+    attendances: false,
     isLoading: true,
   });
 
@@ -38,7 +38,6 @@ export default function Attendance(props) {
     if (!data.data.length) {
       setState({
         ...state,
-        attendances: false,
         isLoading: false,
       });
       return;
@@ -48,11 +47,27 @@ export default function Attendance(props) {
       return moment(d.createdAt).format('dddd, MMMM Do YYYY, h:mm:ss a');
     });
 
+    const snitzie = (timeStr) => {
+      const [, , time] = timeStr.split(',');
+      return moment(time, 'h:mm:ss a');
+    };
+
+    const startTime = snitzie(firstChckIn);
+    const endTime = snitzie(lastCheckIn ? lastCheckIn : firstChckIn);
+
+    const timeDiff = moment.duration(endTime.diff(startTime));
+
+    const timeRemaining = {
+      hour: 9 - timeDiff.hours(),
+      min: 60 - timeDiff.minutes(),
+    };
+
     setState({
       ...state,
       attendances: {
         firstChckIn,
         lastCheckIn,
+        timeRemaining,
       },
       isLoading: false,
     });

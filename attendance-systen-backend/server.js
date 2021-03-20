@@ -29,9 +29,11 @@ const registerRouter = require('./src/Routes/registerRouter');
 const loginRouter = require('./src/Routes/loginRouter');
 const requireAuth = require('./src/middleware/requierAuth');
 const checkInRouter = require('./src/Routes/checkInRouter');
+const userRouter = require('./src/Routes/userRouter');
 
 app.use(registerRouter);
 app.use(loginRouter);
+app.use(userRouter);
 
 app.get('/', requireAuth, (req, res) => {
   const user = req.user;

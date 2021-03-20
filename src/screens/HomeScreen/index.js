@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Alert } from 'react-native';
+import { Spinner } from 'native-base';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { attendanceContext } from '../../context/AttendanceContext';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import Constants from 'expo-constants';
 import * as Location from 'expo-location';
-const initState = {
-  hasePermission: null,
-  location: {},
-  error: false,
-  isLoading: true,
-};
 
 export default function HomeScreen({ navigation }) {
+  const initState = {
+    hasePermission: null,
+    location: {},
+    error: false,
+    isLoading: true,
+    scanned: false,
+  };
   const [state, setState] = useState(initState);
-  const [scanned, setScanned] = useState(false);
 
   const {
     state: contextState,
@@ -64,7 +65,7 @@ export default function HomeScreen({ navigation }) {
   }, [state.isLoading]);
 
   const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true);
+    setState({ ...state, scanned: true });
     const { deviceId } = Constants;
 
     const qrString = data;
@@ -89,7 +90,7 @@ export default function HomeScreen({ navigation }) {
           text: 'OK',
           onPress: () => {
             resetErr();
-            setScanned(false);
+            setState({ ...state, scanned: false });
           },
         },
       ],
@@ -102,11 +103,11 @@ export default function HomeScreen({ navigation }) {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         {!state.isLoading ? (
           <BarCodeScanner
-            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+            onBarCodeScanned={state.scanned ? undefined : handleBarCodeScanned}
             style={StyleSheet.absoluteFillObject}
           />
         ) : (
-          <Text>Loading...</Text>
+          <Spinner color="blue" />
         )}
       </View>
     </SafeAreaView>

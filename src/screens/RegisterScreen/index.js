@@ -157,12 +157,7 @@ export default function LoginScreen({ navigation }) {
               style={{
                 marginTop: 20,
               }}>
-              <Button
-                style={{
-                  width: '100%',
-                  justifyContent: 'center',
-                }}
-                onPress={handleSubmit}>
+              <Button info full onPress={handleSubmit}>
                 {authState.loading ? (
                   <Spinner color="white" />
                 ) : (

@@ -11,7 +11,8 @@ export default function Auth(props) {
   const [state, setState] = useState({
     isLogin: false,
     error: false,
-    loading: false,
+    loading: true,
+    user: false,
   });
 
   useEffect(() => {
@@ -19,9 +20,10 @@ export default function Auth(props) {
       const token = await AsyncStorage.getItem('token');
 
       if (token) {
-        setState({ ...state, isLogin: true });
+        const { data } = await trackAPI.get('/checkUser');
+        setState({ ...state, isLogin: true, user: data.data, loading: false });
       } else {
-        setState({ ...state, isLogin: false });
+        setState({ ...state, isLogin: false, loading: false });
       }
     };
 
@@ -39,7 +41,6 @@ export default function Auth(props) {
 
       if (data.status === 'ok') {
         setState({ ...state, isLogin: true, loading: false });
-
         await AsyncStorage.setItem('token', data.data);
       } else {
         setState({ ...state, error: data.data, loading: false });
