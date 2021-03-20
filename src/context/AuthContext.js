@@ -10,7 +10,8 @@ export const authContext = () => useContext(Context);
 export default function Auth(props) {
   const [state, setState] = useState({
     isLogin: false,
-    error: null,
+    error: false,
+    loading: false,
   });
 
   useEffect(() => {
@@ -29,18 +30,21 @@ export default function Auth(props) {
 
   //   Actions...
   const handleLogin = async ({ email, password }) => {
+    setState({ ...state, error: false, loading: true });
+
     if (!email || !password) return;
 
     try {
       const { data } = await trackAPI.post(`/login`, { email, password });
 
-      console.log(data, '??');
       if (data.status === 'ok') {
-        setState({ ...state, isLogin: true });
+        setState({ ...state, isLogin: true, loading: false });
 
         await AsyncStorage.setItem('token', data.data);
       } else {
-        setState({ ...state, error: data });
+        setState({ ...state, error: data.data, loading: false });
+
+        return;
       }
     } catch (err) {
       console.log(err.message, 'ERR');
@@ -54,6 +58,8 @@ export default function Auth(props) {
   };
 
   const handleRegister = async ({ fullName, email, password, dateOfBirth }) => {
+    setState({ ...state, error: false, loading: true });
+
     if (!fullName && !email && !password && !dateOfBirth) return;
 
     try {
@@ -65,8 +71,10 @@ export default function Auth(props) {
       });
 
       if (data.register) RootNavigation.navigate('Login');
+
+      setState({ ...state, error: false, loading: false });
     } catch (err) {
-      console.log(err);
+      console.log(err, '??err??');
     }
   };
 

@@ -25,10 +25,7 @@ router.post('/login', async (req, res) => {
 
       return res.status(200).type('applicaion/json').json({ status: 'ok', data: token });
     } else {
-      res
-        .status(203)
-        .type('applicaion/json')
-        .json({ status: 'error', data: 'Invalid email or password' });
+      res.type('applicaion/json').json({ status: 'error', data: 'Invalid email or password' });
     }
   } catch (err) {
     res.status(500).type('application/json').json({ status: 'error', Error: err });
